@@ -83,8 +83,8 @@ class Mini3_Loco_Cfg( LeggedRobotCfg ):
         test_mode = False
         
     class env(LeggedRobotCfg.env):
-        num_observations = 57
-        num_actions = 16
+        num_observations = 72   # 9 + 3 * num_actions(21)
+        num_actions = 21
         amp_motion_files = './resources/g1_amp_data/lafan_walk+run_50FPS' 
         num_amp_obs = num_actions
         reference_state_initialization = True
@@ -93,11 +93,11 @@ class Mini3_Loco_Cfg( LeggedRobotCfg ):
         priv_info = True
         foot_force_info = True
         scan_dot = True
-        num_privileged_obs = 60
+        num_privileged_obs = 75  # 12 + 3 * num_actions(21)
         if feet_info:
             num_privileged_obs += 12
         if priv_info:
-            num_privileged_obs += 38
+            num_privileged_obs += 48  # 6 + 2 * num_actions(21)
         if foot_force_info:
             num_privileged_obs += 6
         if scan_dot:
@@ -237,11 +237,12 @@ class Mini3_Loco_Cfg( LeggedRobotCfg ):
 
 
     class asset( LeggedRobotCfg.asset ):
-        file = '{LEGGED_GYM_ROOT_DIR}/resources/robots/mini3/mini3_box.urdf'
+        file = '{LEGGED_GYM_ROOT_DIR}/resources/robots/mini3/urdf/mini3_box.urdf'
 
         name = "mini3"
         foot_name = "ankle_roll"
         knee_name = "knee"
+        torso_name = "waist_yaw_link"
         penalize_contacts_on = ["hip", "knee", "shoulder"]
         terminate_after_contacts_on = ["hip", "shoulder", "elbow", "knee"]
         self_collisions = 1 # 1 to disable, 0 to enable...bitwise filter

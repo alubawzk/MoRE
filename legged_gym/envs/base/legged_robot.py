@@ -1011,7 +1011,7 @@ class LeggedRobot(BaseTask):
         self.actor_handles = []
         self.envs = []
         self.cam_handles = []
-        self.torso_body_index = body_names.index("torso_link")
+        self.torso_body_index = body_names.index(self.cfg.asset.torso_name)
         self.randomized_frictions = torch.zeros(self.num_envs, 1, device=self.device, requires_grad=False)
         self.randomized_added_masses = torch.zeros(self.num_envs, 1, device=self.device, requires_grad=False)
         self.randomized_com_pos = torch.zeros(self.num_envs, 3, device=self.device, requires_grad=False)
