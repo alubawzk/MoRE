@@ -4,18 +4,18 @@ from legged_gym.envs.base.legged_robot import LeggedRobot
 from isaacgym.torch_utils import *
 from isaacgym import gymtorch, gymapi, gymutil
 from legged_gym.utils.isaacgym_utils import get_euler_xyz as get_euler_xyz_in_tensor
-from legged_gym.datasets.motion_loader_g1 import G1_AMPLoader
+from legged_gym.datasets.motion_loader_mini3 import Mini3_AMPLoader
 import torch
 import cv2
 import torch.nn.functional as F
 
-class G1_16Dof_Loco_Robot(LeggedRobot):
+class Mini3_Loco_Robot(LeggedRobot):
     def __init__(self, cfg, sim_params, physics_engine, sim_device, headless):
         super().__init__(cfg, sim_params, physics_engine, sim_device, headless)
         self.amp_motion_files = self.cfg.env.amp_motion_files
         self.num_amp_obs = self.cfg.env.num_amp_obs
         if self.cfg.env.reference_state_initialization: # NOTE only for visualize reference motion
-            self.amp_loader = G1_AMPLoader(motion_dir=self.amp_motion_files, device=self.device, time_between_frames=self.dt)
+            self.amp_loader = Mini3_AMPLoader(motion_dir=self.amp_motion_files, device=self.device, time_between_frames=self.dt)
             self.motion_reference = self.amp_loader.get_joint_pose_batch_16dof(torch.cat(self.amp_loader.trajectories_full, dim=0))
         
     def get_amp_observations(self):

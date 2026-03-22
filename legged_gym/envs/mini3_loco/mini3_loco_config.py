@@ -1,31 +1,32 @@
 from legged_gym.envs.base.legged_robot_config import LeggedRobotCfg, LeggedRobotCfgPPO
 
-class G1_16Dof_Loco_Cfg( LeggedRobotCfg ):
+class Mini3_Loco_Cfg( LeggedRobotCfg ):
     class init_state( LeggedRobotCfg.init_state ):
-        pos = [0.0, 0.0, 0.8] # x,y,z [m]
+        pos = [0.0, 0.0, 0.45] # x,y,z [m]
 
         random_default_pos = False
         default_joint_angles = { # = target angles [rad] when action = 0.0
-
-            '0_left_hip_pitch_joint' : -0.1,         
-            '0_left_hip_roll_joint' : 0,               
-            '0_left_hip_yaw_joint' : 0. ,   
-            '0_left_knee_joint' : 0.3,       
-            '0_left_ankle_pitch_joint' : -0.2,     
-            '0_left_ankle_roll_joint' : 0,  
-
-            '0_right_hip_pitch_joint' : -0.1,                                       
-            '0_right_hip_roll_joint' : 0, 
-            '0_right_hip_yaw_joint' : 0., 
-            '0_right_knee_joint' : 0.3,                                             
-            '0_right_ankle_pitch_joint': -0.2,                              
-            '0_right_ankle_roll_joint' : 0,
-
-            '1_left_shoulder_pitch_joint': 0.3,
-            '1_left_elbow_joint': 0.8,
-
-            '1_right_shoulder_pitch_joint': 0.3,
-            '1_right_elbow_joint': 0.8,
+            "right_hip_pitch_joint": -0.4,
+            "right_hip_roll_joint": -0.1,
+            "right_hip_yaw_joint": 0.0,
+            "right_knee_pitch_joint": 0.8,
+            "right_ankle_pitch_joint": -0.45,
+            "right_ankle_roll_joint": 0.1,
+            "left_hip_pitch_joint": -0.4,
+            "left_hip_roll_joint": 0.1,
+            "left_hip_yaw_joint": 0.0,
+            "left_knee_pitch_joint": 0.8,
+            "left_ankle_pitch_joint": -0.45,
+            "left_ankle_roll_joint": -0.1,
+            "waist_yaw_joint": 0.0,
+            "right_shoulder_pitch_joint": 0.0,
+            "right_shoulder_roll_joint": -0.25,
+            "right_shoulder_yaw_joint": 0.0,
+            "right_elbow_pitch_joint": 1.0,
+            "left_shoulder_pitch_joint": 0.0,
+            "left_shoulder_roll_joint": 0.25,
+            "left_shoulder_yaw_joint": 0.0,
+            "left_elbow_pitch_joint": 1.0,
         }
 
     class terrain:
@@ -37,10 +38,10 @@ class G1_16Dof_Loco_Cfg( LeggedRobotCfg ):
         horizontal_scale = 0.1 # [m] influence computation time by a lot
         vertical_scale = 0.005 # [m]
         border_size = 5 # [m]
-        height = [0.02, 0.06]
+        height = [0.016, 0.048]
         simplify_grid = False
-        gap_size = [0.02, 0.1]
-        stepping_stone_distance = [0.02, 0.08]
+        gap_size = [0.016, 0.08]
+        stepping_stone_distance = [0.016, 0.064]
         downsampled_scale = 0.075
         curriculum = True
 
@@ -53,8 +54,10 @@ class G1_16Dof_Loco_Cfg( LeggedRobotCfg ):
         dynamic_friction = 1.0
         restitution = 0.
         measure_heights = True
-        measured_points_x = [-0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, -0.1, 0., 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8] # 1mx1.6m rectangle (without center line)
-        measured_points_y = [-0.5, -0.4, -0.3, -0.2, -0.1, 0., 0.1, 0.2, 0.3, 0.4, 0.5]
+        measured_points_x = [-0.64, -0.56, -0.48, -0.40, -0.32, -0.24, -0.16, -0.08,
+                                0., 0.08, 0.16, 0.24, 0.32, 0.40, 0.48, 0.56, 0.64]
+        measured_points_y = [-0.40, -0.32, -0.24, -0.16, -0.08,
+                                0., 0.08, 0.16, 0.24, 0.32, 0.40]
         measure_horizontal_noise = 0.0
 
         selected = False # select a unique terrain type and pass all arguments
@@ -73,7 +76,7 @@ class G1_16Dof_Loco_Cfg( LeggedRobotCfg ):
         terrain_proportions = list(terrain_dict.values())
         
         # trimesh only:
-        slope_treshold = 0.75# slopes above this threshold will be corrected to vertical surfaces
+        slope_treshold = 0.6# slopes above this threshold will be corrected to vertical surfaces
         origin_zero_z = False
         num_goals = 8
         difficulty_level = 1
@@ -105,7 +108,7 @@ class G1_16Dof_Loco_Cfg( LeggedRobotCfg ):
         warp_camera = True
         warp_device = 'cuda:0'
 
-        position = [0.0576235, 0.01753, 0.42987]
+        position = [0.0506235, 0.01753, 0.42987]
         original = (64, 64)
         resized = (64, 64)
         near_clip = 0
@@ -150,7 +153,7 @@ class G1_16Dof_Loco_Cfg( LeggedRobotCfg ):
         randomize_friction = True
         friction_range = [0.5, 2]
         randomize_base_mass = True
-        added_mass_range = [-5., 5.]
+        added_mass_range = [-2., 2.]
         push_robots = True
         push_interval_s = 8; push_interval_min_s = 8
         min_push_vel_xy = 1; max_push_vel_xy = 1
@@ -160,9 +163,9 @@ class G1_16Dof_Loco_Cfg( LeggedRobotCfg ):
         link_mass_range = [0.8, 1.2]
         
         randomize_com_pos = True
-        com_x_pos_range = [-0.03, 0.03]
-        com_y_pos_range = [-0.03, 0.03]
-        com_z_pos_range = [-0.03, 0.03]
+        com_x_pos_range = [-0.02, 0.02]
+        com_y_pos_range = [-0.02, 0.02]
+        com_z_pos_range = [-0.02, 0.02]
 
         randomize_gains = True
         stiffness_multiplier_range = [0.8, 1.2]
@@ -198,40 +201,50 @@ class G1_16Dof_Loco_Cfg( LeggedRobotCfg ):
         control_type = 'P'
         # PD Drive parameters:
         stiffness = {
-            'hip_yaw_joint': 100.,
-            'hip_roll_joint': 100.,
-            'hip_pitch_joint': 100.,
-            'knee_joint': 150.,
-            'ankle_pitch_joint': 40.,
-            'ankle_roll_joint': 40.,    
-            'shoulder_pitch_joint': 60,
-            'elbow_joint': 40 
+            '*hip_yaw_joint': 20.,
+            '*hip_roll_joint': 20.,
+            '*hip_pitch_joint': 30.,
+            '*knee_joint': 30.,
+            '*ankle_pitch_joint': 20.,
+            '*ankle_roll_joint': 20.,
+            '*shoulder_pitch_joint': 10,
+            '*shoulder_roll_joint': 10,
+            '*shoulder_yaw_joint': 10,
+            '*elbow_pitch_joint': 10,
+            'waist_yaw_joint': 10,
         }  # [N*m/rad]
-        
+
         damping = {
-            'hip_yaw_joint': 2,
-            'hip_roll_joint': 2,
-            'hip_pitch_joint': 2,
-            'knee_joint': 4,
-            'ankle_pitch_joint': 2.0,
-            'ankle_roll_joint': 2.0,
-            'shoulder_pitch_joint': 2,
-            'elbow_joint': 1
+            '*hip_yaw_joint': 1,
+            '*hip_roll_joint': 1,
+            '*hip_pitch_joint': 1,
+            '*knee_joint': 2,
+            '*ankle_pitch_joint': 1.0,
+            '*ankle_roll_joint': 1.0,
+            '*shoulder_pitch_joint': 1,
+            '*shoulder_roll_joint': 1,
+            '*shoulder_yaw_joint': 1,
+            '*elbow_pitch_joint': 1,
+            'waist_yaw_joint': 1,
         } # [N*m/rad]
         # action scale: target angle = actionScale * action + defaultAngle
         action_scale = 0.25
         # decimation: Number of control action updates @ sim DT per policy DT
-        decimation = 4
+        decimation = 10
+
+    class sim(LeggedRobotCfg.sim):
+        dt =  0.002
+
 
     class asset( LeggedRobotCfg.asset ):
-        file = '{LEGGED_GYM_ROOT_DIR}/resources/robots/g1/g1_16dof_lock_wrist_new_feet.urdf'
+        file = '{LEGGED_GYM_ROOT_DIR}/resources/robots/mini3/mini3_box.urdf'
 
-        name = "g1"
+        name = "mini3"
         foot_name = "ankle_roll"
         knee_name = "knee"
-        penalize_contacts_on = ["hip", "knee"]
-        terminate_after_contacts_on = ["pelvis"]
-        self_collisions = 0 # 1 to disable, 0 to enable...bitwise filter
+        penalize_contacts_on = ["hip", "knee", "shoulder"]
+        terminate_after_contacts_on = ["hip", "shoulder", "elbow", "knee"]
+        self_collisions = 1 # 1 to disable, 0 to enable...bitwise filter
         flip_visual_attachments = False
         feet_indicator_offset = [[-0.04, 0, -0.035], [-0.02, 0, -0.035], [0, 0, -0.035], [0.02, 0, -0.035], [0.06, 0, -0.035],  [0.1, 0, -0.035]]
     
@@ -249,8 +262,8 @@ class G1_16Dof_Loco_Cfg( LeggedRobotCfg ):
 
     class rewards( LeggedRobotCfg.rewards ):
         soft_dof_pos_limit = 0.9
-        feet_min_lateral_distance_target = 0.14
-        clearance_height_target = -0.6
+        feet_min_lateral_distance_target = 0.13
+        clearance_height_target = -0.4
         class scales:
             tracking_lin_vel = 2
             tracking_ang_vel = 2
@@ -284,10 +297,10 @@ class G1_16Dof_Loco_Cfg( LeggedRobotCfg ):
             feet_edge = -0.5
             y_offset_pen = -0.5
 
-        feet_contact_force_range = [200. , 600.]
+        feet_contact_force_range = [160. , 480.]
 
 
-class G1_16Dof_Loco_CfgPPO( LeggedRobotCfgPPO ):
+class Mini3_Loco_CfgPPO( LeggedRobotCfgPPO ):
     runner_class_name = 'AMPOnPolicyRunnerMulti'
 
     class policy:
@@ -300,7 +313,7 @@ class G1_16Dof_Loco_CfgPPO( LeggedRobotCfgPPO ):
     class algorithm( LeggedRobotCfgPPO.algorithm ):
         use_amp = False
         amp_loader_type = 'lafan_16dof_multi'
-        amp_loader_class_name = "G1_AMPLoader"
+        amp_loader_class_name = "Mini3_AMPLoader"
         
         entropy_coef = 0.01
         policy_learning_rate = 5e-4
@@ -313,7 +326,7 @@ class G1_16Dof_Loco_CfgPPO( LeggedRobotCfgPPO ):
         use_lerp = False
         max_iterations = 10000
         run_name = ''
-        experiment_name = 'g1_16dof_loco'
+        experiment_name = 'Mini3_loco'
         save_interval = 500
         amp_reward_coef = 5
         amp_num_preload_transitions = 2000000
