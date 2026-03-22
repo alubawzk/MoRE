@@ -247,7 +247,7 @@ class Mini3_Loco_Cfg( LeggedRobotCfg ):
         torso_name = "waist_yaw_link"
         penalize_contacts_on = ["hip", "knee", "shoulder"]
         terminate_after_contacts_on = ["hip", "shoulder", "elbow", "knee"]
-        self_collisions = 1 # 1 to disable, 0 to enable...bitwise filter
+        self_collisions = 0 # 1 to disable, 0 to enable...bitwise filter
         flip_visual_attachments = False
         feet_indicator_offset = [[-0.04, 0, -0.035], [-0.02, 0, -0.035], [0, 0, -0.035], [0.02, 0, -0.035], [0.06, 0, -0.035],  [0.1, 0, -0.035]]
     

@@ -56,9 +56,14 @@ CUDA_VISIBLE_DEVICES=6 nohup python legged_gym/scripts/train.py --task g1_16dof_
 CUDA_VISIBLE_DEVICES=7 nohup python legged_gym/scripts/train.py --task g1_16dof_loco --num_envs 4096 --headless --no_wandb >my_output1.log 2>&1 &
 
 
-CUDA_VISIBLE_DEVICES=6 python legged_gym/scripts/train.py --task mini3_loco --headless --no_wandb --run_name Mini3_Baseline >my_output0.log 2>&1 &
+CUDA_VISIBLE_DEVICES=5 python legged_gym/scripts/train.py --task mini3_loco --headless --no_wandb --run_name Mini3_Baseline >my_output0.log 2>&1 &
 4056504
 
+CUDA_VISIBLE_DEVICES=6 python legged_gym/scripts/train.py --task mini3_loco --headless --no_wandb --run_name Minus_clearance_height_target_0 --max_iterations 5000 >my_output1.log 2>&1 &
+4063916
+
+CUDA_VISIBLE_DEVICES=7 python legged_gym/scripts/train.py --task mini3_loco --headless --no_wandb --run_name Add_clearance_height_target_0.5 --max_iterations 5000 >my_output2.log 2>&1 &
+4065063
 ```
 * Train for 30k–50k iterations (recommended: ≥40k).
 * Use at least 3000 environments for stable learning.
