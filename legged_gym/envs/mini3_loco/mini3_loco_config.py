@@ -200,31 +200,33 @@ class Mini3_Loco_Cfg( LeggedRobotCfg ):
         # PD Drive parameters:
         control_type = 'P'
         # PD Drive parameters:
+        # Keys are matched with `if key in joint_name` (substring). Leading '*' is NOT a wildcard.
+        # URDF joints look like: left_hip_pitch_joint, left_knee_pitch_joint, ...
         stiffness = {
-            '*hip_yaw_joint': 20.,
-            '*hip_roll_joint': 20.,
-            '*hip_pitch_joint': 30.,
-            '*knee_joint': 30.,
-            '*ankle_pitch_joint': 20.,
-            '*ankle_roll_joint': 20.,
-            '*shoulder_pitch_joint': 10,
-            '*shoulder_roll_joint': 10,
-            '*shoulder_yaw_joint': 10,
-            '*elbow_pitch_joint': 10,
+            'hip_yaw_joint': 20.,
+            'hip_roll_joint': 20.,
+            'hip_pitch_joint': 30.,
+            'knee_pitch_joint': 30.,
+            'ankle_pitch_joint': 20.,
+            'ankle_roll_joint': 20.,
+            'shoulder_pitch_joint': 10,
+            'shoulder_roll_joint': 10,
+            'shoulder_yaw_joint': 10,
+            'elbow_pitch_joint': 10,
             'waist_yaw_joint': 10,
         }  # [N*m/rad]
 
         damping = {
-            '*hip_yaw_joint': 1,
-            '*hip_roll_joint': 1,
-            '*hip_pitch_joint': 1,
-            '*knee_joint': 2,
-            '*ankle_pitch_joint': 1.0,
-            '*ankle_roll_joint': 1.0,
-            '*shoulder_pitch_joint': 1,
-            '*shoulder_roll_joint': 1,
-            '*shoulder_yaw_joint': 1,
-            '*elbow_pitch_joint': 1,
+            'hip_yaw_joint': 1,
+            'hip_roll_joint': 1,
+            'hip_pitch_joint': 1,
+            'knee_pitch_joint': 2,
+            'ankle_pitch_joint': 1.0,
+            'ankle_roll_joint': 1.0,
+            'shoulder_pitch_joint': 1,
+            'shoulder_roll_joint': 1,
+            'shoulder_yaw_joint': 1,
+            'elbow_pitch_joint': 1,
             'waist_yaw_joint': 1,
         } # [N*m/rad]
         # action scale: target angle = actionScale * action + defaultAngle
@@ -264,7 +266,7 @@ class Mini3_Loco_Cfg( LeggedRobotCfg ):
     class rewards( LeggedRobotCfg.rewards ):
         soft_dof_pos_limit = 0.9
         feet_min_lateral_distance_target = 0.13
-        clearance_height_target = -0.4
+        clearance_height_target = -0.5
         class scales:
             tracking_lin_vel = 2
             tracking_ang_vel = 2

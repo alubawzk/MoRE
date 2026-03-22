@@ -52,8 +52,12 @@ pip install -e .
 This stage trains a fundamental locomotion policy, which will later used in the residual learning phase.
 ```bash
 CUDA_VISIBLE_DEVICES=6 nohup python legged_gym/scripts/train.py --task g1_16dof_loco --headless --no_wandb >my_output0.log 2>&1 &
-3261898
+
 CUDA_VISIBLE_DEVICES=7 nohup python legged_gym/scripts/train.py --task g1_16dof_loco --num_envs 4096 --headless --no_wandb >my_output1.log 2>&1 &
+
+
+CUDA_VISIBLE_DEVICES=6 python legged_gym/scripts/train.py --task mini3_loco --headless --no_wandb --run_name Mini3_Baseline >my_output0.log 2>&1 &
+4056504
 
 ```
 * Train for 30k–50k iterations (recommended: ≥40k).
