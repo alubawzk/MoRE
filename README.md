@@ -51,7 +51,10 @@ pip install -e .
 1️⃣ **Train base loco policy**: \
 This stage trains a fundamental locomotion policy, which will later used in the residual learning phase.
 ```bash
-python legged_gym/scripts/train.py --task g1_16dof_loco --headless
+CUDA_VISIBLE_DEVICES=6 nohup python legged_gym/scripts/train.py --task g1_16dof_loco --headless --no_wandb >my_output0.log 2>&1 &
+3261898
+CUDA_VISIBLE_DEVICES=7 nohup python legged_gym/scripts/train.py --task g1_16dof_loco --num_envs 4096 --headless --no_wandb >my_output1.log 2>&1 &
+
 ```
 * Train for 30k–50k iterations (recommended: ≥40k).
 * Use at least 3000 environments for stable learning.
@@ -79,7 +82,7 @@ torchrun --nproc_per_node=2 legged_gym/scripts/train.py --task=g1_16dof_resi_moe
 3️⃣ **Visualize**: \
 After training, you can visualize the learned policy using the following command:
 ```bash
-python legged_gym/scripts/play.py --task g1_16dof_loco/g1_16dof_resi_moe --load_run ${policy_path}
+python legged_gym/scripts/play.py --task g1_16dof_loco/g1_16dof_resi_moe --load_run Mar20_17-05-16_ --num_envs 1
 ```
  🕹️ Viewer Controls \
 You can manually control the robot behaviors during visualization.
