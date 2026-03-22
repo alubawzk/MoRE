@@ -82,7 +82,7 @@ torchrun --nproc_per_node=2 legged_gym/scripts/train.py --task=g1_16dof_resi_moe
 3️⃣ **Visualize**: \
 After training, you can visualize the learned policy using the following command:
 ```bash
-python legged_gym/scripts/play.py --task g1_16dof_loco/g1_16dof_resi_moe --load_run Mar20_17-05-16_ --num_envs 1
+python legged_gym/scripts/play.py --task g1_16dof_loco --load_run Mar20_17-05-16_ --num_envs 1
 ```
  🕹️ Viewer Controls \
 You can manually control the robot behaviors during visualization.

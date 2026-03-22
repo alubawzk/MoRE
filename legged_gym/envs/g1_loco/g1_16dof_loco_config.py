@@ -311,7 +311,7 @@ class G1_16Dof_Loco_CfgPPO( LeggedRobotCfgPPO ):
         algorithm_class_name = "AMPPPOMulti"
 
         use_lerp = False
-        max_iterations = 50000
+        max_iterations = 10000
         run_name = ''
         experiment_name = 'g1_16dof_loco'
         save_interval = 500
