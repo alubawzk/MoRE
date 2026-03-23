@@ -69,6 +69,15 @@ class Mini3_Loco_Robot(LeggedRobot):
                 sphere_geom, self.gym, self.viewer, self.envs[self.lookat_id], pose
             )
 
+    def _process_dof_props(self, props, env_id):
+        props = super()._process_dof_props(props, env_id)
+        for i, name in enumerate(self.dof_names):
+            for key, value in self.cfg.dof.armature.items():
+                if key in name:
+                    props["armature"][i] = value
+                    break
+        return props
+
     def _reset_dofs(self, env_ids):
         if self.cfg.init_state.random_default_pos:
             rand_default_pos = self.motion_reference[np.random.randint(0, self.motion_reference.shape[0], size=(env_ids.shape[0], )), :]
@@ -191,7 +200,7 @@ class Mini3_Loco_Robot(LeggedRobot):
         """
         self.reset_buf = torch.any(torch.norm(self.contact_forces[:, self.termination_contact_indices, :], dim=-1) > 1000., dim=1)
         self.reset_buf |= torch.logical_or(torch.abs(self.rpy[:,1])>1.0, torch.abs(self.rpy[:,0])>0.8)
-        self.reset_buf |= (self._get_base_heights() < 0.4)
+        self.reset_buf |= (self._get_base_heights() < 0.3)
 
         if self.cfg.terrain.mesh_type == "trimesh":
             offset_y = torch.abs(self.root_states[:, 1] - self.origin_y)

@@ -234,6 +234,21 @@ class Mini3_Loco_Cfg( LeggedRobotCfg ):
         # decimation: Number of control action updates @ sim DT per policy DT
         decimation = 10
 
+    class dof:
+        armature = {
+            'hip_roll_joint':       0.032,
+            'hip_pitch_joint':      0.1244,
+            'hip_yaw_joint':        0.032,
+            'knee_pitch_joint':     0.1244,
+            'ankle_pitch_joint':    0.0019,
+            'ankle_roll_joint':     0.0019,
+            'shoulder_pitch_joint': 0.0019,
+            'shoulder_roll_joint':  0.0019,
+            'shoulder_yaw_joint':   0.0019,
+            'elbow_pitch_joint':    0.0019,
+            'waist_yaw_joint':      0.032,
+        }  # [kg*m^2] rotor inertia, matched by substring
+
     class sim(LeggedRobotCfg.sim):
         dt =  0.002
 
@@ -267,6 +282,7 @@ class Mini3_Loco_Cfg( LeggedRobotCfg ):
         soft_dof_pos_limit = 0.9
         feet_min_lateral_distance_target = 0.13
         clearance_height_target = -0.5
+        base_height_target = 0.42
         class scales:
             tracking_lin_vel = 2
             tracking_ang_vel = 2
@@ -299,6 +315,8 @@ class Mini3_Loco_Cfg( LeggedRobotCfg ):
             cheat = -2
             feet_edge = -0.5
             y_offset_pen = -0.5
+            base_height = -1.0
+            termination = -10.0
 
         feet_contact_force_range = [160. , 480.]
 
