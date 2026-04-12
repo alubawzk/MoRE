@@ -139,6 +139,7 @@ def get_args():
         {"name": "--lerp", "type": float,  "help": "the ratio to mix task reward and style reward"},
         {"name": "--coeff_y_rew", "type": float, "default": None, "help": "the ratio to mix task reward and style reward"},
         {"name": "--log_root", "type": str,  "default": "default", "help": "log root"},
+        {"name": "--log_base_dir", "type": str, "default": None, "help": "Base directory for training logs. When set, default logs are written to <log_base_dir>/more_logs/<experiment_name>/."},
 
         {"name": "--no_wandb", "action": "store_true", "default": False,  "help": "If use wandb"},
         

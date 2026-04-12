@@ -203,31 +203,31 @@ class Mini3_Loco_Cfg( LeggedRobotCfg ):
         # Keys are matched with `if key in joint_name` (substring). Leading '*' is NOT a wildcard.
         # URDF joints look like: left_hip_pitch_joint, left_knee_pitch_joint, ...
         stiffness = {
-            'hip_yaw_joint': 20.,
-            'hip_roll_joint': 20.,
-            'hip_pitch_joint': 30.,
-            'knee_pitch_joint': 30.,
-            'ankle_pitch_joint': 20.,
-            'ankle_roll_joint': 20.,
-            'shoulder_pitch_joint': 10,
-            'shoulder_roll_joint': 10,
-            'shoulder_yaw_joint': 10,
-            'elbow_pitch_joint': 10,
-            'waist_yaw_joint': 10,
+            'hip_yaw_joint': 25.,
+            'hip_roll_joint': 55.,
+            'hip_pitch_joint': 70.,
+            'knee_pitch_joint': 70.,
+            'ankle_pitch_joint': 50.,
+            'ankle_roll_joint': 45.,
+            'shoulder_pitch_joint': 30,
+            'shoulder_roll_joint': 45,
+            'shoulder_yaw_joint': 30,
+            'elbow_pitch_joint': 20,
+            'waist_yaw_joint': 65,
         }  # [N*m/rad]
 
         damping = {
-            'hip_yaw_joint': 1,
-            'hip_roll_joint': 1,
-            'hip_pitch_joint': 1,
-            'knee_pitch_joint': 2,
+            'hip_yaw_joint': 1.1,
+            'hip_roll_joint': 2.8,
+            'hip_pitch_joint': 5.0,
+            'knee_pitch_joint': 5.0,
             'ankle_pitch_joint': 1.0,
             'ankle_roll_joint': 1.0,
-            'shoulder_pitch_joint': 1,
-            'shoulder_roll_joint': 1,
-            'shoulder_yaw_joint': 1,
-            'elbow_pitch_joint': 1,
-            'waist_yaw_joint': 1,
+            'shoulder_pitch_joint': 1.1,
+            'shoulder_roll_joint': 2.0,
+            'shoulder_yaw_joint': 1.0,
+            'elbow_pitch_joint': 1.0,
+            'waist_yaw_joint': 3.0,
         } # [N*m/rad]
         # action scale: target angle = actionScale * action + defaultAngle
         action_scale = 0.25
@@ -259,10 +259,10 @@ class Mini3_Loco_Cfg( LeggedRobotCfg ):
         name = "mini3"
         foot_name = "ankle_roll"
         knee_name = "knee"
-        torso_name = "waist_yaw_link"
+        torso_name = "base_link"
         penalize_contacts_on = ["hip", "knee", "shoulder"]
         terminate_after_contacts_on = ["hip", "shoulder", "elbow", "knee"]
-        self_collisions = 0 # 1 to disable, 0 to enable...bitwise filter
+        self_collisions = 1 # 1 to disable, 0 to enable...bitwise filter
         flip_visual_attachments = False
         feet_indicator_offset = [[-0.04, 0, -0.035], [-0.02, 0, -0.035], [0, 0, -0.035], [0.02, 0, -0.035], [0.06, 0, -0.035],  [0.1, 0, -0.035]]
     
@@ -281,10 +281,11 @@ class Mini3_Loco_Cfg( LeggedRobotCfg ):
     class rewards( LeggedRobotCfg.rewards ):
         soft_dof_pos_limit = 0.9
         feet_min_lateral_distance_target = 0.13
+        feet_max_lateral_distance_target = 0.19
         clearance_height_target = -0.5
-        base_height_target = 0.42
+        base_height_target = 0.44
         class scales:
-            tracking_lin_vel = 2
+            tracking_lin_vel = 4
             tracking_ang_vel = 2
 
             dof_acc = -5e-7
@@ -315,8 +316,6 @@ class Mini3_Loco_Cfg( LeggedRobotCfg ):
             cheat = -2
             feet_edge = -0.5
             y_offset_pen = -0.5
-            base_height = -1.0
-            termination = -10.0
 
         feet_contact_force_range = [160. , 480.]
 

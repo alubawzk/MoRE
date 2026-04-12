@@ -200,7 +200,7 @@ class Mini3_Loco_Robot(LeggedRobot):
         """
         self.reset_buf = torch.any(torch.norm(self.contact_forces[:, self.termination_contact_indices, :], dim=-1) > 1000., dim=1)
         self.reset_buf |= torch.logical_or(torch.abs(self.rpy[:,1])>1.0, torch.abs(self.rpy[:,0])>0.8)
-        self.reset_buf |= (self._get_base_heights() < 0.3)
+        self.reset_buf |= (self._get_base_heights() < 0.25)
 
         if self.cfg.terrain.mesh_type == "trimesh":
             offset_y = torch.abs(self.root_states[:, 1] - self.origin_y)
@@ -394,12 +394,16 @@ class Mini3_Loco_Robot(LeggedRobot):
         return is_jump.float()
     
     def _reward_feet_lateral_distance(self):
-        # Penalize feet lateral distance
+        # Reward feet spacing inside the target interval, penalize outside it.
         cur_footpos_translated = self.feet_pos - self.root_states[:, 0:3].unsqueeze(1)
         footpos_in_body_frame = torch.zeros(self.num_envs, len(self.feet_indices), 3, device=self.device)
         for i in range(len(self.feet_indices)):
             footpos_in_body_frame[:, i, :] = quat_rotate_inverse(self.base_quat, cur_footpos_translated[:, i, :])
-        rew = (footpos_in_body_frame[:, 0, 1] - footpos_in_body_frame[:, 1, 1]) - self.cfg.rewards.feet_min_lateral_distance_target
+        feet_lateral_distance = footpos_in_body_frame[:, 0, 1] - footpos_in_body_frame[:, 1, 1]
+        rew = torch.minimum(
+            feet_lateral_distance - self.cfg.rewards.feet_min_lateral_distance_target,
+            self.cfg.rewards.feet_max_lateral_distance_target - feet_lateral_distance,
+        )
         return rew
     
     def _reward_feet_slippage(self):
